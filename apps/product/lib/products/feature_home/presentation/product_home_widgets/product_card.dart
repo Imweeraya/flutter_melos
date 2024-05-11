@@ -2,7 +2,7 @@ import 'package:core_ui/widgets/elements/texts/price_text.dart';
 import 'package:core_ui/widgets/elements/texts/small_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:product/products/domain/entities/product.dart';
+import 'package:product/products/feature_home/domain/entities/product.dart';
 
 typedef ProductCardTap = Function(ProductDisplay product);
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:product/products/domain/entities/product.dart';
-import 'package:product/products/presentation/card/product_card.dart';
+import 'package:product/products/feature_home/domain/entities/product.dart';
+import 'package:product/products/feature_home/presentation/product_home_widgets/product_card.dart';
+
 typedef OnSelectProduct = Function(ProductDisplay product);
 
 class ProductList extends StatelessWidget {

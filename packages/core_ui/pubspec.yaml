@@ -23,27 +23,3 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
 
-  fonts:
-    - family: Oswal
-      fonts:
-        - asset: assets/fonts/Oswald-ExtraLight.ttf
-          weight: 200
-        - asset: assets/fonts/Oswald-Light.ttf
-          weight: 300
-        - asset: assets/fonts/Oswald-Regular.ttf
-        - asset: assets/fonts/Oswald-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/Oswald-SemiBold.ttf
-          weight: 600
-        - asset: assets/fonts/Oswald-Bold.ttf
-          weight: 800
-
-    - family: Ubuntu
-      fonts:
-        - asset: assets/fonts/Ubuntu-Light.ttf
-          weight: 300
-        - asset: assets/fonts/Ubuntu-Regular.ttf
-        - asset: assets/fonts/Ubuntu-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/Ubuntu-Bold.ttf
-          weight: 800

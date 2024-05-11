@@ -1,7 +1,7 @@
 import 'package:core_ui/widgets/texts/text_title.dart';
 import 'package:flutter/material.dart';
-import 'package:product/products/domain/entities/product.dart';
-import 'package:product/products/presentation/list/product_list.dart';
+import 'package:product/products/feature_home/domain/entities/product.dart';
+import 'package:product/products/feature_home/presentation/product_home_widgets/product_list.dart';
 
 
 class Catalog extends StatelessWidget {
