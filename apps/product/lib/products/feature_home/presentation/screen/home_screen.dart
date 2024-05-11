@@ -57,13 +57,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void onSelectProduct(ProductDisplay product) {
-    context.go('/detail' , extra: product);
+    context.push('/detail' , extra: product);
     print(product.name);
   }
 
-  void tapMenubar(path) {
-    context.go(path);
-  }
+  // void tapMenubar(path) {
+  //   context.go(path);
+  // }
   
 
   @override
@@ -99,7 +99,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     },
                   )),
-                  HomeMenubar(selectMenu: tapMenubar,)          ],
+                  // HomeMenubar(selectMenu: tapMenubar,)
+                            ],
         ),
       ),
     );

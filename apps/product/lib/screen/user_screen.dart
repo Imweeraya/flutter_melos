@@ -17,9 +17,9 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
-  void onSelectMenu(String path) {
-    context.go(path);
-  }
+  // void onSelectMenu(String path) {
+  //   context.go(path);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -220,7 +220,7 @@ class _UserScreenState extends State<UserScreen> {
                   ),
                 ),
               ),
-              HomeMenubar(selectMenu: onSelectMenu),
+              // HomeMenubar(selectMenu: onSelectMenu),
             ],
           ),
         ),

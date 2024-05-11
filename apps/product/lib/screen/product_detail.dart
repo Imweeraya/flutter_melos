@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:product/products/feature_home/domain/entities/product.dart';
-import 'package:product/products/presentation/appbar/product_menubar.dart';
+import 'package:product/products/feature_home/presentation/product_home_widgets/product_menubar.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   const ProductDetailScreen({super.key, required this.product});
