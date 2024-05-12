@@ -1,15 +1,19 @@
+import 'package:core_ui/theme/theme_provider.dart';
 import 'package:core_ui/widgets/elements/texts/medium_text.dart';
 import 'package:core_ui/widgets/elements/texts/menubar_text.dart';
 import 'package:core_ui/widgets/elements/texts/small_text.dart';
 import 'package:flutter/material.dart';
-class ProductMenubar extends StatelessWidget {
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+class ProductMenubar extends ConsumerWidget {
   const ProductMenubar({super.key , required this.productprice});
   final double productprice;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context , WidgetRef ref) {
+    final color = ref.watch(appThemeProvider).themeColor;
+
     return Container(
-                color: Colors.black87,
+                color: color.backgroundColorPrimary,
                 height: 80,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
@@ -22,16 +26,16 @@ class ProductMenubar extends StatelessWidget {
                               onPressed: () {
                                 
                               },
-                              icon: const Icon(
+                              icon: Icon(
                                 Icons.chat_bubble_rounded,
-                                color: Colors.white70,
+                                color: color.selectedItem,
                                 size: 25,
                               )),
-                          MenubarText(title: "Chat")
+                          MenubarText(title: "Chat" ,color: color.selectedItem,)
                         ],
                       ),
                       Container(
-                        color: Colors.white,
+                        color: color.textColor,
                         width: 0.5,
                         height: 50,
                       ),
@@ -39,16 +43,16 @@ class ProductMenubar extends StatelessWidget {
                         children: [
                           IconButton(
                               onPressed: () {},
-                              icon: const Icon(
+                              icon: Icon(
                                 Icons.shopping_bag_rounded,
-                                color: Colors.white70,
+                                color: color.selectedItem,
                                 size: 25,
                               )),
-                          MenubarText(title: "Add to shopbag")
+                          MenubarText(title: "Add to shopbag" ,color: color.selectedItem,)
                         ],
                       ),
                       Container(
-                        color: Colors.white,
+                        color: color.textColor,
                         width: 0.5,
                         height: 50,
                       ),

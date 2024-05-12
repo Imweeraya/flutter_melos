@@ -1,3 +1,5 @@
+import 'package:core_ui/theme/theme_provider.dart';
+import 'package:core_ui/theme/theme_state.dart';
 import 'package:core_ui/widgets/elements/buttons/secondary_button.dart';
 import 'package:core_ui/widgets/elements/texts/detail_text.dart';
 import 'package:core_ui/widgets/elements/texts/medium_text.dart';
@@ -5,38 +7,53 @@ import 'package:core_ui/widgets/texts/text_title.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:product/products/feature_home/presentation/product_home_widgets/home_menubar.dart';
 import 'package:product/products/presentation/card/slide_image.dart';
 
-class UserScreen extends StatefulWidget {
+class UserScreen extends ConsumerStatefulWidget {
   const UserScreen({super.key});
 
   @override
-  State<UserScreen> createState() => _UserScreenState();
+  ConsumerState<UserScreen> createState() => _UserScreenState();
 }
 
-class _UserScreenState extends State<UserScreen> {
+class _UserScreenState extends ConsumerState<UserScreen> {
   // void onSelectMenu(String path) {
   //   context.go(path);
   // }
 
   @override
   Widget build(BuildContext context) {
+    final color = ref.watch(appThemeProvider).themeColor;
+    final themeNotifier = ref.read(appThemeProvider.notifier);
+    final themeProvider = ref.watch(appThemeProvider);
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black87,
+        backgroundColor: color.backgroundColorPrimary,
         actions: [
+           IconButton(
+                onPressed: themeNotifier.switchTheme,
+                icon: Icon(
+                  themeProvider.selectedTheme == Themes.light
+                      ? Icons.dark_mode
+                      : Icons.light_mode,
+                  color: color.textColor,
+                )
+                ),
           IconButton(
               onPressed: () {},
-              icon: const Icon(
+              icon: Icon(
                 Icons.settings,
-                color: Colors.white,
+                color: color.textColor,
               ))
         ],
       ),
       body: SafeArea(
         child: Container(
+          color: color.backgroundColorSecondary,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -64,12 +81,12 @@ class _UserScreenState extends State<UserScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          TextTitle(title: "Weeraya Kosandilok"),
+                          TextTitle(title: "Weeraya Kosandilok" , color: color.textColor,),
                           Container(
-                            decoration: const BoxDecoration(
+                            decoration:  BoxDecoration(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10)),
-                                color: Color.fromARGB(255, 66, 66, 66)),
+                                color: Color.fromARGB(255, 77, 77, 77)),
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: DetailText(
@@ -86,12 +103,12 @@ class _UserScreenState extends State<UserScreen> {
               ),
               Expanded(
                 child: Container(
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(20.0),
                       topRight: Radius.circular(20.0),
                     ),
-                    color: Colors.black87,
+                    color: color.backgroundColorPrimary,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(20, 25, 20, 10),
@@ -102,7 +119,7 @@ class _UserScreenState extends State<UserScreen> {
                           children: [
                             MediumText(
                               title: "My Orders",
-                              color: Colors.white,
+                              color: color.textColor,
                             ),
                             DetailText(title: "View all orders >")
                           ],
@@ -115,9 +132,9 @@ class _UserScreenState extends State<UserScreen> {
                           children: [
                             Column(
                               children: [
-                                const Icon(
+                                 Icon(
                                   Icons.payments_outlined,
-                                  color: Colors.white,
+                                  color: color.textColor,
                                   size: 30,
                                 ),
                                 DetailText(title: "To Pay")
@@ -125,9 +142,9 @@ class _UserScreenState extends State<UserScreen> {
                             ),
                             Column(
                               children: [
-                                const Icon(
+                                 Icon(
                                   Icons.assignment_returned,
-                                  color: Colors.white,
+                                  color: color.textColor,
                                   size: 30,
                                 ),
                                 DetailText(title: "To Ship")
@@ -135,9 +152,9 @@ class _UserScreenState extends State<UserScreen> {
                             ),
                             Column(
                               children: [
-                                const Icon(
+                                 Icon(
                                   Icons.local_shipping_rounded,
-                                  color: Colors.white,
+                                  color: color.textColor,
                                   size: 30,
                                 ),
                                 DetailText(title: "To Receive")
@@ -145,9 +162,9 @@ class _UserScreenState extends State<UserScreen> {
                             ),
                             Column(
                               children: [
-                                const Icon(
+                                 Icon(
                                   Icons.chat_rounded,
-                                  color: Colors.white,
+                                  color: color.textColor,
                                   size: 30,
                                 ),
                                 DetailText(title: "To Review")
@@ -155,11 +172,11 @@ class _UserScreenState extends State<UserScreen> {
                             ),
                           ],
                         ),
-                        const SizedBox(
+                         SizedBox(
                           height: 20,
                         ),
                         Container(
-                          color: Colors.white54,
+                          color: color.textColor,
                           width: double.infinity,
                           height: 0.5,
                         ),
@@ -168,7 +185,7 @@ class _UserScreenState extends State<UserScreen> {
                         ),
                         MediumText(
                           title: "Special Deal",
-                          color: Colors.white,
+                          color: color.textColor,
                         ),
                         const SizedBox(
                           height: 10,
@@ -182,9 +199,12 @@ class _UserScreenState extends State<UserScreen> {
                           height: 20,
                         ),
                         Container(
-                          color: Colors.white54,
+                          color: color.textColor,
                           width: double.infinity,
                           height: 0.5,
+                        ),
+                        const SizedBox(
+                          height: 20,
                         ),
                         const SecondaryButtom(
                           icon: Icons.card_membership_rounded,

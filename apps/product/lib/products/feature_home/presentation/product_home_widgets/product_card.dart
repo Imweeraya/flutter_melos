@@ -1,12 +1,14 @@
+import 'package:core_ui/theme/theme_provider.dart';
 import 'package:core_ui/widgets/elements/texts/price_text.dart';
 import 'package:core_ui/widgets/elements/texts/small_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:product/products/feature_home/domain/entities/product.dart';
 
 typedef ProductCardTap = Function(ProductDisplay product);
 
-class ProductCard extends StatelessWidget {
+class ProductCard extends ConsumerWidget {
   const ProductCard({super.key, required this.product, this.onTap});
 
   final ProductDisplay product;
@@ -15,7 +17,9 @@ class ProductCard extends StatelessWidget {
   final ProductCardTap? onTap;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context , WidgetRef ref) {
+    final color = ref.watch(appThemeProvider).themeColor;
+
     return GestureDetector(
       onTap: () {
         if (onTap != null) {
@@ -50,7 +54,7 @@ class ProductCard extends StatelessWidget {
                         bottomLeft: Radius.circular(10.0),
                         bottomRight: Radius.circular(10.0),
                       ),
-                      color: Colors.black.withOpacity(0.7)),
+                      color: color.backgroundColorSecondary),
                   child: Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Row(
@@ -60,11 +64,11 @@ class ProductCard extends StatelessWidget {
                           title: product.name.length > 10
                               ? '${product.name.substring(0, 10)}...'
                               : product.name,
-                          color: Colors.white,
+                          color: color.textColor,
                         ),
                         PriceText(
                           title: '${product.price} \$',
-                          color: Colors.white,
+                          color: color.textColor,
                         )
                       ],
                     ),

@@ -1,3 +1,4 @@
+import 'package:core_ui/theme/theme_provider.dart';
 import 'package:core_ui/widgets/elements/texts/detail_text.dart';
 import 'package:core_ui/widgets/elements/texts/medium_text.dart';
 import 'package:core_ui/widgets/elements/texts/small_text.dart';
@@ -6,54 +7,60 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:product/products/feature_home/domain/entities/product.dart';
-import 'package:product/products/feature_home/presentation/product_home_widgets/product_menubar.dart';
+import 'package:product/products/presentation/appbar/product_menubar.dart';
 
-class ProductDetailScreen extends StatefulWidget {
+class ProductDetailScreen extends ConsumerStatefulWidget {
   const ProductDetailScreen({super.key, required this.product});
 
   final ProductDisplay product;
 
   @override
-  State<ProductDetailScreen> createState() => _ProductDetailScreenState();
+  ConsumerState<ProductDetailScreen> createState() =>
+      _ProductDetailScreenState();
 }
 
-class _ProductDetailScreenState extends State<ProductDetailScreen> {
+class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
   bool favorite = false;
 
   void toggleFavorite() {
     setState(() {
       favorite = !favorite;
     });
-    favorite ? showSnackBar("Add to wishlist") : showSnackBar("Remove from wishlist");
+    favorite
+        ? showSnackBar("Add to wishlist")
+        : showSnackBar("Remove from wishlist");
   }
 
-  void showSnackBar (String message){
+  void showSnackBar(String message) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              message,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(color: Color.fromARGB(255, 143, 143, 143)),
-              textAlign: TextAlign.center,
-            ),
-            backgroundColor: Colors.white,
-            behavior: SnackBarBehavior.floating,
-            margin: const EdgeInsets.only(bottom: 70, left: 40, right: 40),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            // width: 250,
-            duration: Duration(seconds: 3),
-          ),
-        );
+      SnackBar(
+        content: Text(
+          message,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium!
+              .copyWith(color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+        backgroundColor: Color.fromARGB(255, 128, 128, 128),
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.only(bottom: 70, left: 40, right: 40),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        // width: 250,
+        duration: Duration(seconds: 3),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    final color = ref.watch(appThemeProvider).themeColor;
+
     final product = widget.product;
 
     List<Widget> starIcons = List.generate(5, (index) {
@@ -72,35 +79,35 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios_new_rounded,
-            color: Colors.white,
+            color: color.textColor,
           ),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
-        backgroundColor: Colors.black87,
+        backgroundColor: color.backgroundColorPrimary,
         actions: [
           IconButton(
             onPressed: () {},
-            icon: const Icon(
+            icon: Icon(
               Icons.share_rounded,
-              color: Colors.white,
+              color: color.textColor,
             ),
           ),
           IconButton(
             onPressed: () {},
-            icon: const Icon(
+            icon: Icon(
               Icons.shopping_bag_outlined,
-              color: Colors.white,
+              color: color.textColor,
             ),
           ),
           IconButton(
             onPressed: () {},
-            icon: const Icon(
+            icon: Icon(
               Icons.more_horiz_rounded,
-              color: Colors.white,
+              color: color.textColor,
             ),
           ),
         ],
@@ -124,12 +131,18 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             ),
             Expanded(
               child: Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20.0),
                     topRight: Radius.circular(20.0),
                   ),
-                  color: Colors.black87,
+                  border: Border(
+                    top: BorderSide(
+                      color: color.backgroundColorSecondary, // Specify the color of the border
+                      width: 2.0, // Specify the width of the border
+                    ),
+                  ),
+                  color: color.backgroundColorPrimary,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
@@ -137,7 +150,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     children: [
                       TextTitle(
                         title: "${product.price.toString()} \$",
-                        color: const Color.fromARGB(255, 255, 255, 255),
+                        color: color.textColor,
                       ),
                       const SizedBox(
                         height: 20,
@@ -148,7 +161,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           Flexible(
                             child: MediumText(
                               title: product.name,
-                              color: Colors.white,
+                              color: color.textColor,
                             ),
                           ),
                           const SizedBox(
@@ -187,16 +200,16 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           ),
                           SmallText(
                             title: "(${product.count.toString()})",
-                            color: Colors.white,
+                            color: color.textColor,
                           )
                         ],
                       ),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                        padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
                         child: Container(
                           height: 0.5,
                           width: double.infinity,
-                          decoration: BoxDecoration(color: Colors.white54),
+                          decoration: BoxDecoration(color: color.textColor),
                         ),
                       ),
                       Row(
@@ -205,7 +218,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           Flexible(
                             child: MediumText(
                               title: "Shipping",
-                              color: Colors.white,
+                              color: color.textColor,
                             ),
                           ),
                           const SizedBox(
@@ -213,9 +226,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           ),
                           Row(
                             children: [
-                              const Icon(
+                              Icon(
                                 Icons.pin_drop_rounded,
-                                color: Colors.white,
+                                color: color.textColor,
                                 size: 25,
                               ),
                               SizedBox(width: 10),
@@ -232,8 +245,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          DetailText(title: "Economical shipping"),
-                          DetailText(title: "1.00 \$"),
+                          DetailText(title: "Economical shipping" , color: color.textColor,),
+                          DetailText(title: "1.00 \$" , color: color.textColor,),
                         ],
                       ),
                       const SizedBox(
@@ -241,13 +254,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ),
                       Row(
                         children: [
-                          DetailText(title: "Receieve within 3 days"),
+                          DetailText(title: "Receieve within 3 days" , color: color.textColor,),
                           const SizedBox(
                             width: 10,
                           ),
-                          const Icon(
+                          Icon(
                             Icons.local_shipping_rounded,
-                            color: Colors.white70,
+                            color: color.textColor,
                           ),
                         ],
                       ),
@@ -256,17 +269,17 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         child: Container(
                           height: 0.5,
                           width: double.infinity,
-                          decoration: BoxDecoration(color: Colors.white54),
+                          decoration: BoxDecoration(color: color.textColor),
                         ),
                       ),
                       MediumText(
                         title: "Product details",
-                        color: Colors.white,
+                        color: color.textColor,
                       ),
                       SizedBox(
                         height: 10,
                       ),
-                      DetailText(title: product.description ?? ""),
+                      DetailText(title: product.description ?? "" , color: color.textColor,),
                       SizedBox(
                         height: 10,
                       ),
@@ -276,7 +289,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               ),
             ),
             Container(
-              color: Colors.white54,
+              color: color.textColor,
               width: double.infinity,
               height: 0.5,
             ),

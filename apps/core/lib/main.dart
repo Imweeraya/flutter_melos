@@ -1,11 +1,13 @@
 import 'package:core/dependency_injection/inject.dart';
 import 'package:core/router/go_router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:product/main.dart';
 
 void main() {
   registerServices();
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

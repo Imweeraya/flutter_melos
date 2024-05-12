@@ -7,14 +7,13 @@ class ImageSlider extends StatefulWidget {
   @override
   _ImageSliderState createState() => _ImageSliderState();
 }
-
 class _ImageSliderState extends State<ImageSlider> {
   final List<String> imageUrls = [
     "https://img.freepik.com/premium-psd/3d-objects-laptop-black-friday_129606-66.jpg?w=826",
     "https://i.pinimg.com/564x/b8/3f/6c/b83f6c2bb10b0bfe7cf4ab07e3e35b41.jpg" ,
     "https://i.pinimg.com/564x/ae/34/aa/ae34aa3903570ed58d1a8fcc831c3ab3.jpg",
     "https://i.pinimg.com/564x/8c/00/91/8c00914f41d0d7fec49c3a9431c5b417.jpg"
-     ];
+  ];
 
   PageController _pageController = PageController();
   int _currentPage = 0;
@@ -22,7 +21,7 @@ class _ImageSliderState extends State<ImageSlider> {
   @override
   void initState() {
     super.initState();
-    startAutoSlide();
+    _startAutoSlide();
   }
 
   @override
@@ -31,7 +30,7 @@ class _ImageSliderState extends State<ImageSlider> {
     super.dispose();
   }
 
-  void startAutoSlide() {
+  void _startAutoSlide() {
     Timer.periodic(Duration(seconds: 3), (Timer timer) {
       if (_currentPage < imageUrls.length - 1) {
         _currentPage++;
@@ -52,7 +51,7 @@ class _ImageSliderState extends State<ImageSlider> {
       controller: _pageController,
       itemCount: imageUrls.length,
       itemBuilder: (context, index) {
-        return buildImage(index);
+        return _buildImage(index);
       },
       onPageChanged: (int page) {
         setState(() {
@@ -62,7 +61,7 @@ class _ImageSliderState extends State<ImageSlider> {
     );
   }
 
-  Widget buildImage(int index) {
+  Widget _buildImage(int index) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20.0),
       child: Image.network(

@@ -3,3 +3,7 @@ name: my_shop
 packages:
   - apps/**
   - packages/**
+
+scripts:
+  code-gen:
+    run: 'flutter pub run buiild_runner build'

@@ -20,6 +20,12 @@ dependencies:
   core_libs:
     path: ../../packages/core_libs
 
+  core_ui:
+    path: ../../packages/core_ui
+
+  flutter_riverpod: ^2.5.1
+  riverpod: ^2.5.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
